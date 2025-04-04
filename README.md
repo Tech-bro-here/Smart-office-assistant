@@ -204,23 +204,4 @@ Smart-Office-Assistant/
 - **`services.html`**: Overview of offered services.
 - **`training.html`**: Displays training progress for face recognition.
 
----
-
-## Contributing
-Contributions are welcome! To contribute:
-1. Fork the repository.
-2. Create a new branch (`git checkout -b feature/your-feature`).
-3. Make your changes and commit (`git commit -m "Add your feature"`).
-4. Push to the branch (`git push origin feature/your-feature`).
-5. Open a pull request.
-
-Please ensure your code follows PEP 8 guidelines and includes appropriate comments.
-
----
-
-## License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-For any questions or support, feel free to open an issue on GitHub or contact the maintainers. Enjoy using the Smart Office Assistant!
+ Enjoy using the Smart Office Assistant!
