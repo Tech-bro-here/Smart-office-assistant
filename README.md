@@ -1,8 +1,8 @@
-Smart Office Assistant
+# README for Smart Office Assistant
 
-Welcome to the Smart Office Assistant project! This repository contains a comprehensive system designed to streamline office management through face recognition-based attendance tracking, a chatbot for visitor and employee assistance, and an admin dashboard for managing employees and appointments.
+Welcome to the **Smart Office Assistant** project! This repository contains a comprehensive system designed to streamline office management through face recognition-based attendance tracking, a chatbot for visitor and employee assistance, and an admin dashboard for managing employees and appointments.
 
- Table of Contents
+## Table of Contents
 - [Project Overview](#project-overview)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
