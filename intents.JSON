@@ -1,0 +1,1042 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi there", "How are you", "Is anyone there?", "Hey", "Hola", "Hello", "Good day",
+        "Good morning", "Good afternoon", "What's up", "Hi", "Hello there", "Yo", "Sup",
+        "Greetings", "Hi assistant", "Hey there", "Hello bot", "Start", "Begin"
+      ],
+      "responses": [
+        "Hello! Welcome to our office.",
+        "Hi there! How can I assist you today?",
+        "Good day! What brings you here?",
+        "Hello! How may I help you?",
+        "Hi! Nice to see you.",
+        "Welcome! I'm your smart office assistant. How can I help you today?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye", "See you later", "Goodbye", "Nice chatting to you, bye", "Till next time",
+        "Take care", "Farewell", "See you soon", "Later", "Bye bye", "I'm leaving",
+        "Have a good day", "I have to go", "Talk to you later", "Signing off", "End conversation"
+      ],
+      "responses": [
+        "Goodbye! Have a great day.",
+        "See you later!",
+        "Take care!",
+        "Bye! Come back if you need anything else.",
+        "Farewell!",
+        "It was nice talking to you.",
+        "Thanks for chatting. Have a wonderful day!",
+        "Goodbye! Feel free to return if you need assistance."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks", "Thank you", "That's helpful", "Awesome, thanks", "Thanks for helping me",
+        "Appreciate it", "Thank you so much", "Thanks a lot", "Thank you very much",
+        "Great help", "You're the best", "That was useful", "Perfect", "Excellent",
+        "Much appreciated", "You've been helpful", "Thanks for your assistance"
+      ],
+      "responses": [
+        "You're welcome!",
+        "No problem!",
+        "Glad I could help!",
+        "Anytime!",
+        "My pleasure!",
+        "Happy to assist!",
+        "It's what I'm here for!",
+        "You're most welcome. Feel free to ask if you need anything else."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "registration",
+      "patterns": [
+        "How do I register?", "I want to register as a new user", "New user registration",
+        "Register me", "Sign me up", "I need to register", "Create an account", "New registration",
+        "How to create account", "Join the system", "Become a user", "Employee registration",
+        "Register as employee", "New employee setup", "How to sign up"
+      ],
+      "responses": [
+        "To register as a new employee, please visit our website at www.example.com/register or ask at the reception desk for a registration form. You'll need to provide your ID and department information.",
+        "New employee registration can be done at the reception desk. Please bring your ID and appointment letter.",
+        "For registration, please speak with HR or visit the reception desk with your identification documents."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "office_hours",
+      "patterns": [
+        "What are the office timings?", "When is the office open?", "Office hours",
+        "Business hours", "What time does the office close?", "Opening hours",
+        "When do you open", "When do you close", "Working hours", "Operation hours",
+        "What days are you open", "Weekend hours", "Holiday hours"
+      ],
+      "responses": [
+        "Our office is open from 9 AM to 6 PM, Monday to Friday. We're closed on weekends and public holidays.",
+        "Our working hours are 9 AM to 6 PM on weekdays (Monday to Friday). The office remains closed on weekends and holidays.",
+        "The office operates from 9 in the morning until 6 in the evening, Monday through Friday. We don't open on weekends or holidays."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "meeting_room_location",
+      "patterns": [
+        "Where is the meeting room?", "How do I find the conference room?",
+        "Location of meeting rooms", "Where are the conference rooms?"
+      ],
+      "responses": [
+        "The meeting rooms are located on the 2nd floor. Please follow the signs or ask at the reception for specific room numbers."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "book_conference_room",
+      "patterns": [
+        "How do I book a conference room?", "Reserve a meeting room", "Schedule a room",
+        "Can I book a room for a meeting?"
+      ],
+      "responses": [
+        "You can book a conference room through our office portal at portal.example.com or by asking at the reception."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "manager_info",
+      "patterns": [
+        "Who is my manager?", "Find my supervisor", "Who do I report to?"
+      ],
+      "responses": [
+        "Please check with HR or your department head for information about your manager."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "cafeteria_location",
+      "patterns": [
+        "Where is the cafeteria?", "Location of the cafeteria", "Where can I get food?",
+        "Is there a lunch room?"
+      ],
+      "responses": [
+        "The cafeteria is located on the ground floor near the reception area."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "restroom_location",
+      "patterns": [
+        "Where is the restroom?", "Where are the bathrooms?", "Toilet location",
+        "Need to use the washroom"
+      ],
+      "responses": [
+        "Restrooms are located on each floor near the elevators."
+      ],
+      "context": [""]
+    },
+    { 
+      "tag": "printer_access",
+      "patterns": [
+        "How do I connect to the printer?", "Printer setup", "Printing documents",
+        "Use the office printer"
+      ],
+      "responses": [
+        "To connect to the printer, please see the instructions on the printer or ask IT support for assistance."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "break_room",
+      "patterns": [
+        "Is there a break room?", "Where is the break area?", "Employee lounge location"
+      ],
+      "responses": [
+        "Yes, there is a break room on the first floor next to the cafeteria."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "drinking_water",
+      "patterns": [
+        "Where can I find drinking water?", "Water fountains", "Is there a water cooler?"
+      ],
+      "responses": [
+        "Drinking water is available in the cafeteria and near the restrooms on each floor."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "shared_drive_access",
+      "patterns": [
+        "How do I access the shared drive?", "Connect to shared folder", "Network drive access"
+      ],
+      "responses": [
+        "To access the shared drive, please contact IT support for the necessary permissions and instructions."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "book_appointment",
+      "patterns": [
+        "I want to book an appointment",
+        "Can I schedule a meeting",
+        "I need to meet the manager",
+        "Book appointment",
+        "Schedule meeting",
+        "Make an appointment",
+        "Set up a meeting",
+        "Reserve a time slot",
+        "I'd like to book a time",
+        "Need to schedule a visit",
+        "Appointment booking",
+        "Can I get an appointment",
+        "I want to meet someone",
+        "Schedule a consultation"
+      ],
+      "responses": [
+        "I'll help you book an appointment. Please provide your name."
+      ],
+      "context": ["get_name"]
+    },
+    {
+      "tag": "provide_name",
+      "patterns": [
+        "My name is *",
+        "I am *",
+        "* is my name",
+        "Call me *"
+      ],
+      "responses": [
+        "Nice to meet you! What date would you like to book? (Please use DD-MM-YYYY format)"
+      ],
+      "context": ["get_date"]
+    },
+    {
+      "tag": "provide_date",
+      "patterns": [
+        "* is the date",
+        "Book for *",
+        "Date *",
+        "Schedule on *"
+      ],
+      "responses": [
+        "What time would you prefer? I'll show you the available slots based on the date you selected.",
+        "Please tell me what time would work for you. I'll check the available slots for that date.",
+        "What time would be convenient for you? I'll confirm the available slots."
+      ],
+      "context": ["get_time"]
+    },
+    {
+      "tag": "provide_time",
+      "patterns": [
+        "* o'clock",
+        "at *",
+        "* is good",
+        "* time"
+      ],
+      "responses": [
+        "What's the purpose of your meeting?"
+      ],
+      "context": ["get_purpose"]
+    },
+    {
+      "tag": "provide_purpose",
+      "patterns": [
+        "For *",
+        "I want to discuss *",
+        "About *",
+        "The purpose is *"
+      ],
+      "responses": [
+        "Let me check if that slot is available..."
+      ],
+      "context": ["check_availability"]
+    },
+    {
+      "tag": "cancel_appointment",
+      "patterns": [
+        "Cancel appointment",
+        "Cancel meeting",
+        "I need to cancel",
+        "Remove my appointment"
+      ],
+      "responses": [
+        "I can help you cancel your appointment. Please provide your name and the appointment date and time."
+      ]
+    },
+    {
+      "tag": "location",
+      "patterns": [
+        "Where is your office located?", "Office address", "How do I get to your office?",
+        "Directions to office", "What's the address?"
+      ],
+      "responses": [
+        "Our office is located at 123 Main Street, Anytown, USA. You can find directions on our website at www.example.com/directions."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "contact_info",
+      "patterns": [
+        "What's your phone number?", "How can I contact you?", "Email address",
+        "Contact details", "How do I reach you?"
+      ],
+      "responses": [
+        "You can reach us at 123-456-7890 or email us at info@example.com."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "services",
+      "patterns": [
+        "What services do you provide?", "What do you do?", "Tell me about your services",
+        "What can you help with?", "What are your offerings?"
+      ],
+      "responses": [
+        "We offer a range of services including consultations, technical support, and administrative assistance. For more details, please visit our website."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "department_inquiries",
+      "patterns": [
+        "Who handles billing?", "I need to talk to HR", "Connect me to sales",
+        "Department contacts", "Who is in charge of [department]?"
+      ],
+      "responses": [
+        "For billing inquiries, please contact billing@example.com. For HR, email hr@example.com. To speak with sales, call 123-456-7890 and ask for the sales team."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "visitor_checkin",
+      "patterns": [
+        "I'm here for a meeting", "I have an appointment", "Meeting with someone",
+        "Here to see [Name]"
+      ],
+      "responses": [
+        "Welcome! Please have a seat, and I'll notify the relevant person that you're here. Could you please tell me who you're meeting with?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "parking",
+      "patterns": [
+        "Where can I park?", "Is there parking available?", "Parking facilities",
+        "Parking information", "Where to park my car?"
+      ],
+      "responses": [
+        "There is a parking lot available for visitors behind the office building."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "wifi",
+      "patterns": [
+        "Is there WiFi?", "How do I connect to WiFi?", "WiFi password", "Internet access",
+        "Can I use the WiFi?"
+      ],
+      "responses": [
+        "We offer free WiFi for visitors. The network name is 'OfficeGuest' and the password is 'welcome123'."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "lost_and_found",
+      "patterns": [
+        "I lost my [item]", "Did anyone find a [item]?", "Lost and found",
+        "I can't find my [item]", "Report a lost item"
+      ],
+      "responses": [
+        "Please check with the reception desk for lost and found items."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "small_talk",
+      "patterns": [
+        "How are you?", "What's new?", "Tell me a joke", "How's it going?", "What's up?"
+      ],
+      "responses": [
+        "I'm doing well, thank you for asking!",
+        "Not much, just here to help you.",
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "It's going great, how about you?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "help",
+      "patterns": [
+        "Help", "What can you do?", "What questions can I ask?", "I need assistance",
+        "How can you help me?"
+      ],
+      "responses": [
+        "I can help with booking appointments, providing office information, and answering general queries. What do you need assistance with?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "dress_code",
+      "patterns": [
+        "What is the dress code?", "Can I wear jeans?", "Is business casual okay?",
+        "Dress policy"
+      ],
+      "responses": [
+        "Our office dress code is business casual. Jeans are allowed on Fridays."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "smoking_policy",
+      "patterns": [
+        "Is smoking allowed?", "Where can I smoke?", "Smoking areas", "Smoking policy"
+      ],
+      "responses": [
+        "Smoking is not allowed inside the office building. There is a designated smoking area outside the main entrance."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "office_tours",
+      "patterns": [
+        "Can I get a tour of the office?", "Is there an office tour available?",
+        "Show me around", "Office tour"
+      ],
+      "responses": [
+        "Office tours are available upon request. Please ask at the reception desk to arrange one."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "emergency_procedures",
+      "patterns": [
+        "What to do in case of emergency?", "Emergency exits", "Fire drill information",
+        "Safety procedures"
+      ],
+      "responses": [
+        "In case of emergency, please follow the exit signs to the nearest emergency exit. For more information, see the emergency procedures posted in the lobby."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "nearby_amenities",
+      "patterns": [
+        "Are there any restaurants nearby?", "Where can I get coffee?",
+        "Is there a pharmacy close by?", "Local amenities"
+      ],
+      "responses": [
+        "There are several restaurants within walking distance, including a cafe next door. For coffee, you can visit the cafeteria or the coffee shop across the street. The nearest pharmacy is two blocks away on Main Street."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "human_assistance",
+      "patterns": [
+        "I want to talk to a person", "Can I speak with someone?", "Need human help",
+        "Transfer to reception"
+      ],
+      "responses": [
+        "Please proceed to the reception desk, and a human receptionist will be happy to assist you."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "technical_support",
+      "patterns": [
+        "My computer isn't working", "IT help", "Computer problem", "System error",
+        "Software issue", "Hardware problem", "Network down", "Internet not working",
+        "Email issues", "Can't access my account", "Password reset", "Computer is slow",
+        "Blue screen", "Application crash", "Need IT support", "Technical difficulties"
+      ],
+      "responses": [
+        "For technical support, please contact our IT helpdesk at extension 555 or email it.support@example.com. For urgent issues, you can visit the IT department on the 3rd floor.",
+        "I recommend contacting our IT support team for technical issues. You can reach them at extension 555 or by submitting a ticket through the company portal.",
+        "Our IT team can help with your technical issue. Please provide details of your problem to it.support@example.com or call extension 555."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "meeting_preparation",
+      "patterns": [
+        "How to prepare for a meeting", "Meeting checklist", "What to bring to a meeting",
+        "Meeting preparation", "Before a meeting", "Meeting materials", "Presentation setup",
+        "Conference room equipment", "Meeting agenda", "Projector setup"
+      ],
+      "responses": [
+        "To prepare for a meeting, make sure you have your presentation materials ready, arrive 5-10 minutes early, and check that any equipment you need (like projectors or video conferencing) is working. You can request technical assistance from IT if needed.",
+        "For meeting preparation, I recommend preparing an agenda, gathering necessary materials, and testing any technology you'll use beforehand. Our conference rooms are equipped with projectors and video conferencing capabilities."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "office_supplies",
+      "patterns": [
+        "Where can I find office supplies", "Need pens", "Out of paper", "Stationery request",
+        "Order supplies", "Printer toner", "Office equipment", "Supply cabinet",
+        "Where are the staplers", "Need notebooks", "Request materials"
+      ],
+      "responses": [
+        "Office supplies are available in the supply cabinet on each floor. If you need something that's not available, please submit a request through the office portal or speak with the office manager.",
+        "You can find basic office supplies like pens, paper, and staplers in the supply room on your floor. For special requests, please email office.supplies@example.com."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "leave_policy",
+      "patterns": [
+        "How do I apply for leave", "Vacation policy", "Sick leave", "Time off request",
+        "Annual leave", "Leave application", "Day off", "Holiday request", "Leave balance",
+        "Maternity leave", "Paternity leave", "Personal days", "Leave approval process"
+      ],
+      "responses": [
+        "To apply for leave, submit your request through the HR portal at least 3 days in advance for planned leave. For sick leave, notify your manager as soon as possible. You can check your leave balance in the HR system.",
+        "Our leave policy requires employees to submit leave requests through the HR portal. Annual leave should be requested at least 3 days in advance, while sick leave should be reported as soon as possible. Your manager will review and approve your request."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "payroll_questions",
+      "patterns": [
+        "When is payday", "Salary issues", "Payroll questions", "Tax deductions",
+        "Direct deposit", "Payslip", "Salary slip", "Payment schedule", "Bonus payment",
+        "Overtime pay", "Reimbursement", "Expense claims", "Compensation"
+      ],
+      "responses": [
+        "Payday is on the last working day of each month. For payroll questions or issues with your salary, please contact the finance department at payroll@example.com or visit them on the 4th floor.",
+        "Salaries are processed on the last working day of each month. You can access your payslips through the HR portal. For specific payroll inquiries, please contact the finance team."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "feedback",
+      "patterns": [
+        "I want to give feedback", "Suggestion box", "Improvement ideas", "Employee survey",
+        "Report an issue", "Complaint", "Praise", "Recognition", "Employee feedback",
+        "Suggestion for improvement", "How to give feedback"
+      ],
+      "responses": [
+        "We value your feedback! You can submit suggestions or concerns through the employee portal, the suggestion box in the cafeteria, or directly to your manager. We also conduct quarterly employee surveys.",
+        "To provide feedback, you can use the anonymous suggestion form on the company intranet, speak with your manager, or email feedback@example.com. All feedback is reviewed by management."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "transportation",
+      "patterns": [
+        "How to get to the office", "Public transportation", "Parking information",
+        "Shuttle service", "Commuter benefits", "Carpool", "Bus routes", "Train schedule",
+        "Office location", "Directions", "Transportation options", "Commuting"
+      ],
+      "responses": [
+        "Our office is accessible by public transportation. The nearest bus stop is at Main Street (routes 10, 15, and 22), and the subway station is a 5-minute walk away. For drivers, parking is available in the building garage.",
+        "You can reach our office by bus (routes 10, 15, and 22), subway (Green Line), or car. Employee parking is available in the building garage with your access card. We also offer a commuter benefits program - check with HR for details."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "health_safety",
+      "patterns": [
+        "First aid kit", "Emergency procedures", "Fire exit", "Safety guidelines",
+        "Accident reporting", "Health concerns", "Workplace safety", "Evacuation plan",
+        "Safety training", "Hazard reporting", "Security measures", "Emergency contacts"
+      ],
+      "responses": [
+        "First aid kits are located on each floor near the elevators. In case of emergency, follow the evacuation plan posted near the stairwells. All accidents should be reported immediately to your supervisor and the safety officer.",
+        "For health and safety concerns, please refer to the safety guidelines in the employee handbook. Emergency exits are marked with illuminated signs, and evacuation plans are posted throughout the building. First aid kits are available on each floor."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "remote_work",
+      "patterns": [
+        "Work from home policy", "Remote work", "Telecommuting", "Virtual meetings",
+        "Home office setup", "VPN access", "Remote login", "Work remotely", "Flexible work",
+        "Hybrid work model", "Remote work equipment", "Virtual collaboration"
+      ],
+      "responses": [
+        "Our remote work policy allows employees to work from home up to 2 days per week with manager approval. You'll need VPN access, which you can request from IT. For equipment needs, submit a request through the office portal.",
+        "To work remotely, you need your manager's approval and proper equipment setup. Contact IT for VPN access and remote login instructions. Our policy generally allows for 2 remote days per week, but this varies by department."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "training_development",
+      "patterns": [
+        "Training opportunities", "Professional development", "Learning resources",
+        "Courses available", "Skill development", "Certification programs", "Workshops",
+        "Career growth", "Learning platform", "Training budget", "Educational resources",
+        "Online courses", "Mentorship program"
+      ],
+      "responses": [
+        "We offer various training and development opportunities through our learning platform at learn.example.com. Each employee has an annual training budget for external courses and certifications. Speak with your manager or HR about specific development needs.",
+        "For professional development, check our learning platform for available courses and workshops. We support certifications and external training with approval from your manager. The HR department can provide more information about our mentorship program and career development paths."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "benefits_inquiry",
+      "patterns": [
+        "Employee benefits", "Health insurance", "Retirement plan", "401k", "Insurance coverage",
+        "Dental plan", "Vision insurance", "Benefits package", "Wellness program",
+        "Employee perks", "Benefit enrollment", "Insurance card", "Benefits questions"
+      ],
+      "responses": [
+        "Our employee benefits include health, dental, and vision insurance, a 401(k) retirement plan with company matching, and a wellness program. For specific questions about your benefits, please contact HR at benefits@example.com.",
+        "Information about our benefits package is available in the employee handbook and on the HR portal. We offer comprehensive health insurance, retirement plans, and various wellness programs. The open enrollment period is in November each year."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "weather",
+      "patterns": [
+        "What's the weather like", "Is it going to rain", "Weather forecast", "Temperature today",
+        "Do I need an umbrella", "Weather report", "Is it sunny", "Weather conditions",
+        "How cold is it", "How hot is it", "Will it snow"
+      ],
+      "responses": [
+        "I don't have access to real-time weather data, but you can check the weather on your phone or computer. The office building maintains a comfortable temperature regardless of outside conditions.",
+        "I can't provide current weather information, but you can easily check a weather app or website for the latest forecast. Our office environment is climate-controlled for your comfort."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "company_events",
+      "patterns": [
+        "Upcoming events", "Company party", "Team building", "Office celebrations",
+        "Holiday party", "Corporate events", "Annual meeting", "Company picnic",
+        "Social events", "Calendar of events", "Office activities", "Company outing"
+      ],
+      "responses": [
+        "Information about upcoming company events is posted on the bulletin board in the cafeteria and sent via email. You can also check the company calendar on the intranet for team building activities and celebrations.",
+        "Our company regularly organizes events like team building activities, holiday parties, and the annual company picnic. Check your email and the intranet for announcements about upcoming events."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "joke",
+      "patterns": [
+        "Tell me a joke", "Say something funny", "Make me laugh", "Tell a joke",
+        "Do you know any jokes", "I need a laugh", "Humor me", "Got any jokes",
+        "Be funny", "Entertain me"
+      ],
+      "responses": [
+        "Why don't scientists trust atoms? Because they make up everything!",
+        "What did the janitor say when he jumped out of the closet? Supplies!",
+        "Why did the scarecrow win an award? Because he was outstanding in his field!",
+        "I told my wife she was drawing her eyebrows too high. She looked surprised!",
+        "What do you call a fake noodle? An impasta!",
+        "Why did the office worker wear a helmet to meetings? They were afraid of brainstorming!",
+        "What's the best thing about Switzerland? I don't know, but the flag is a big plus!",
+        "How many programmers does it take to change a light bulb? None, that's a hardware problem!"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "compliment",
+      "patterns": [
+        "You're smart", "Good job", "You're helpful", "You're amazing", "You're good",
+        "You're the best", "I like you", "You're awesome", "Great assistant",
+        "You're intelligent", "Nice work", "Well done", "Impressive"
+      ],
+      "responses": [
+        "Thank you for the kind words! I'm here to help.",
+        "That's very nice of you to say. I'm glad I could assist you.",
+        "Thank you! I aim to provide the best assistance possible.",
+        "I appreciate your compliment! How else can I help you today?",
+        "You're too kind! I'm happy to be of service."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "fallback",
+      "patterns": [],
+      "responses": [
+        "I'm sorry, I didn't understand that. Could you please rephrase your question?",
+        "I'm not sure about that. Can I help you with something else?",
+        "I don't have that information, but you can call our office at 123-456-7890 for assistance.",
+        "I'm still learning and don't have an answer for that yet. Is there something else I can help with?",
+        "I didn't quite catch that. Could you try asking in a different way?"
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "office_services",
+      "patterns": [
+        "What services do you offer?", "Can you tell me about the office services?", 
+        "What can I get help with?", "List the services available", 
+        "What assistance do you provide?"
+      ],
+      "responses": [
+        "We offer a variety of services including appointment scheduling, visitor check-in, office supplies management, and technical support.",
+        "Our services include booking conference rooms, providing information about office hours, and assisting with employee inquiries.",
+        "You can ask me about office amenities, meeting room bookings, and any HR-related questions."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "appointment_followup",
+      "patterns": [
+        "What are the details of my appointment?", "Can you confirm my appointment?", 
+        "Tell me about my scheduled appointment", "What time is my meeting?"
+      ],
+      "responses": [
+        "Your appointment is scheduled for {date} at {time}. The purpose of the meeting is {purpose}.",
+        "You have an appointment on {date} at {time}. Please remember to bring any necessary documents."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "invalid_date",
+      "patterns": [
+        "I want to book an appointment for yesterday", "Can I book for a past date?", 
+        "I need to schedule something for last week"
+      ],
+      "responses": [
+        "Sorry, you cannot book appointments for past dates. Please provide a valid date.",
+        "That date has already passed. Please enter a current or future date."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "future_date_limit",
+      "patterns": [
+        "Can I book an appointment for two months from now?", "I want to schedule for next year"
+      ],
+      "responses": [
+        "You can only book appointments up to one month in advance. Please choose a date within that range.",
+        "Appointments can only be scheduled for dates within the next month. Please select a valid date."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "urgent_appointment",
+      "patterns": [
+        "I need an urgent appointment",
+        "Emergency meeting required",
+        "Need to meet someone immediately",
+        "Urgent consultation needed",
+        "ASAP appointment",
+        "Book urgent meeting",
+        "Emergency appointment today",
+        "Need immediate assistance",
+        "Urgent meeting request",
+        "Critical appointment needed"
+      ],
+      "responses": [
+        "For urgent appointments, please contact our emergency booking line at 123-456-7890. They can assist you with immediate scheduling needs.",
+        "I understand this is urgent. Please call our emergency line at 123-456-7890 for immediate assistance.",
+        "For immediate appointments, please contact 123-456-7890. They handle all urgent scheduling requests."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "cancel_booking",
+      "patterns": [
+        "I want to cancel",
+        "Stop booking",
+        "Cancel this",
+        "Quit booking",
+        "Exit appointment booking",
+        "Stop the process",
+        "Cancel appointment booking",
+        "Never mind the booking",
+        "I changed my mind"
+      ],
+      "responses": [
+        "Appointment booking cancelled. How else can I help you?",
+        "Booking process has been cancelled. Is there anything else I can help you with?",
+        "I've cancelled the booking. Let me know if you need anything else."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "find_employee",
+      "patterns": [
+        "Where is *",
+        "Find *",
+        "Locate *",
+        "* desk location",
+        "Where does * sit",
+        "How can I find *",
+        "Contact details for *",
+        "* contact number",
+        "* phone number",
+        "* email",
+        "How to reach *"
+      ],
+      "responses": [
+        "Please contact our reception desk at 123-456-7890 for specific employee locations and contact information. For privacy reasons, I cannot directly provide personal contact details."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "it_support",
+      "patterns": [
+        "IT help needed",
+        "Computer not working",
+        "Printer issues",
+        "Network problem",
+        "Software installation",
+        "Password reset",
+        "System access",
+        "Email problems",
+        "Internet connection issues",
+        "Computer virus",
+        "Software update"
+      ],
+      "responses": [
+        "For IT support, please:\n1. Submit a ticket at helpdesk.company.com\n2. Call IT Support at ext. 555\n3. Email it.support@company.com\nFor urgent issues, visit IT department on 3rd floor.",
+        "IT Support is available at extension 555 or email it.support@company.com. For immediate assistance, visit the IT help desk on 3rd floor."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "maintenance_request",
+      "patterns": [
+        "Report maintenance issue",
+        "Broken furniture",
+        "AC not working",
+        "Light bulb replacement",
+        "Cleaning request",
+        "Repair needed",
+        "Maintenance problem",
+        "Building maintenance",
+        "Facility issue",
+        "Fix required"
+      ],
+      "responses": [
+        "To report maintenance issues:\n1. Submit request via facilities.company.com\n2. Call Maintenance at ext. 666\n3. Email maintenance@company.com\nFor urgent issues, contact the facility manager at ext. 777."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "office_supplies",
+      "patterns": [
+        "Need office supplies",
+        "Order stationery",
+        "Request supplies",
+        "Get new notebook",
+        "Need pens",
+        "Paper request",
+        "Printer cartridge",
+        "Office equipment request",
+        "Supply cabinet access",
+        "Where are supplies kept"
+      ],
+      "responses": [
+        "Office supplies are available in the supply room on each floor. For special requests, submit a form through office.company.com or contact supplies@company.com.",
+        "Visit the supply room on your floor for basic supplies. For bulk orders or special items, email supplies@company.com."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "visitor_management",
+      "patterns": [
+        "Visitor registration",
+        "Guest check-in",
+        "Visitor badge",
+        "Guest wifi",
+        "Visitor parking",
+        "Guest access",
+        "Visitor policy",
+        "Register guest",
+        "Visitor pass"
+      ],
+      "responses": [
+        "For visitors:\n1. Register at reception desk\n2. Provide valid ID\n3. Get visitor badge\n4. Guest WiFi: Network='VisitorNet', Password updated daily\n5. Visitor parking available in Lot B",
+        "All visitors must register at reception with valid ID. You'll receive a visitor badge and WiFi access. Visitor parking is in Lot B."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "conference_equipment",
+      "patterns": [
+        "Meeting room equipment",
+        "Projector setup",
+        "Video conference",
+        "Conference call",
+        "Meeting room technology",
+        "Presentation equipment",
+        "Audio setup",
+        "Screen sharing",
+        "Meeting room devices",
+        "Conference room setup"
+      ],
+      "responses": [
+        "Conference room equipment guide:\n1. Projector: Use HDMI or VGA cable\n2. Video conf: Launch Zoom/Teams on room PC\n3. Audio: Use room phone for conf calls\nFor support, call IT at ext. 555",
+        "For conference room technical support, contact IT at ext. 555 or visit help.company.com for setup guides."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "food_services",
+      "patterns": [
+        "Cafeteria menu",
+        "Food options",
+        "Lunch menu",
+        "Catering services",
+        "Coffee machine",
+        "Vending machines",
+        "Meal options",
+        "Food delivery",
+        "Breakfast services",
+        "Lunch hours"
+      ],
+      "responses": [
+        "Food services information:\n1. Cafeteria hours: 8AM-4PM\n2. Coffee stations on each floor\n3. Vending machines in break rooms\n4. Catering: email catering@company.com\n5. Today's menu at cafe.company.com",
+        "The cafeteria is open 8AM-4PM. For catering requests, contact catering@company.com. View daily menu at cafe.company.com."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "security",
+      "patterns": [
+        "Security issue",
+        "Lost access card",
+        "Building access",
+        "Report suspicious activity",
+        "Security concern",
+        "After hours access",
+        "Emergency exit",
+        "Security badge",
+        "Building security",
+        "Access card problem"
+      ],
+      "responses": [
+        "For security matters:\n1. Emergency: Call Security at ext. 911\n2. Lost access card: Report to security desk immediately\n3. After hours access: Request through security.company.com\n4. Suspicious activity: Call Security at ext. 888",
+        "Contact building security at ext. 888 for immediate assistance. For access card issues, visit the security desk in the lobby."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "transportation",
+      "patterns": [
+        "Shuttle schedule",
+        "Company transport",
+        "Parking information",
+        "Bus schedule",
+        "Commuter benefits",
+        "Transit options",
+        "Carpool program",
+        "Bike storage",
+        "Employee parking",
+        "Transportation services"
+      ],
+      "responses": [
+        "Transportation services:\n1. Company shuttle: Every 30 mins (6AM-8PM)\n2. Employee parking: Lots A & C\n3. Bike storage: Basement level\n4. Carpool program: Register at transport.company.com\n5. Commuter benefits available through HR",
+        "View shuttle schedule at transport.company.com. For parking permits or commuter benefits, contact HR at ext. 444."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "wellness_facilities",
+      "patterns": [
+        "Gym access",
+        "Fitness center",
+        "Wellness room",
+        "Meditation space",
+        "Mother's room",
+        "Rest area",
+        "Health facilities",
+        "Exercise room",
+        "Shower facilities",
+        "Relaxation room"
+      ],
+      "responses": [
+        "Wellness facilities:\n1. Gym: 24/7 access with employee ID\n2. Meditation room: 3rd floor\n3. Mother's room: 2nd & 4th floors\n4. Showers: Basement level\n5. First aid: Each floor near elevators",
+        "The fitness center is open 24/7 with your employee ID. Wellness rooms are available on each floor. Register for gym access at wellness.company.com."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "attendance_help",
+      "patterns": [
+        "How do I mark attendance",
+        "Where to mark attendance",
+        "Can't mark attendance",
+        "Attendance system help",
+        "How to use attendance scanner",
+        "Mark in problems",
+        "Mark out issues",
+        "Attendance system not working",
+        "How to check in",
+        "How to check out",
+        "Where is the attendance page",
+        "Access attendance system"
+      ],
+      "responses": [
+        "To mark your attendance:\n1. Go to the attendance scanner page\n2. Click 'Mark In' when you arrive\n3. Click 'Mark Out' when you leave\n4. View your attendance history in the dashboard\nIf you have issues, contact IT support at ext. 555.",
+        "You can mark your attendance through the attendance scanner page. Use the 'Mark In' button when arriving and 'Mark Out' when leaving. For technical issues, contact IT support."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "attendance_status",
+      "patterns": [
+        "Am I marked in",
+        "Check my attendance",
+        "View my attendance",
+        "Show attendance history",
+        "My attendance record",
+        "Did I mark out",
+        "Attendance dashboard",
+        "Today's attendance",
+        "My check in time",
+        "My check out time",
+        "Attendance report"
+      ],
+      "responses": [
+        "You can view your attendance history in the dashboard. Click the 'View Dashboard' button on the attendance scanner page to see your records.",
+        "To check your attendance status and history, visit the attendance dashboard through the scanner page. For specific queries, contact HR at ext. 444."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "attendance_correction",
+      "patterns": [
+        "Forgot to mark attendance",
+        "Need to correct attendance",
+        "Wrong attendance time",
+        "Missed marking attendance",
+        "Attendance mistake",
+        "Fix attendance record",
+        "Update attendance",
+        "Correct check in time",
+        "Change attendance record",
+        "Attendance error"
+      ],
+      "responses": [
+        "To correct attendance records:\n1. Email HR at hr@company.com\n2. Include date, correct times, and reason\n3. Your supervisor will need to approve the correction\nFor urgent corrections, contact HR at ext. 444.",
+        "For attendance corrections, please submit a request to HR with your supervisor's approval. Email hr@company.com with the details and reason for correction."
+      ],
+      "context": [""]
+    },
+    {
+      "tag": "attendance_policy",
+      "patterns": [
+        "Attendance policy",
+        "Working hours",
+        "Late policy",
+        "Early leaving policy",
+        "Attendance rules",
+        "Flexible hours",
+        "Core hours",
+        "Attendance requirements",
+        "Work schedule policy",
+        "Time tracking rules"
+      ],
+      "responses": [
+        "Attendance Policy:\n1. Core hours: 9:30 AM - 4:30 PM\n2. Flexible hours: 7:00 AM - 7:00 PM\n3. Mark in/out daily\n4. Notify supervisor for late arrival/early departure\n5. Submit correction requests within 48 hours",
+        "Our attendance policy requires marking attendance daily. Core hours are 9:30 AM - 4:30 PM. For detailed policy information, visit policies.company.com or contact HR."
+      ],
+      "context": [""]
+    }
+  ]
+}

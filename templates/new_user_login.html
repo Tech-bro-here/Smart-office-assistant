@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Registration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            position: relative;
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            color: white;
+        }
+        .home-icon {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            font-size: 2.5em;
+            margin-top: 40px;
+            margin-bottom: 10px;
+        }
+        p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #3a3a3a;
+            margin-bottom: 20px;
+        }
+        form {
+            width: 300px;
+            margin: 20px auto;
+            padding: 25px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            background-color: #fff;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #3a3a3a;
+        }
+        input[type="text"], input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        input[type="text"]:focus, input[type="date"]:focus, select:focus {
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+            outline: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            width: 100%;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        button:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+        }
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.7);
+        }
+        .fas.fa-user {
+            animation: pulse 2s infinite;
+            margin-right: 10px;
+            color: #4CAF50;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        @media (max-width: 600px) {
+            form {
+                width: 90%;
+            }
+        }
+        .home-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1100;
+        }
+        .home-button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>New User Registration</h1>
+        <a href="/" class="home-icon"><i class="fas fa-home"></i></a>
+    </div>
+    <form id="registrationForm" method="post">
+        <label for="employee_id">Employee ID:</label>
+        <input type="text" id="employee_id" name="employee_id" required>
+        
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" name="dob" required>
+        
+        <label for="position">Position:</label>
+        <select id="position" name="position" required>
+            <option value="">Select Position</option>
+            <option value="Manager">Manager</option>
+            <option value="Developer">Developer</option>
+            <option value="Designer">Designer</option>
+            <option value="HR">HR</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Sales">Sales</option>
+            <option value="Support">Support</option>
+        </select>
+        
+        <label for="department">Department:</label>
+        <select id="department" name="department" required>
+            <option value="">Select Department</option>
+            <option value="Administration">Administration</option>
+            <option value="IT">IT</option>
+            <option value="Human Resources">Human Resources</option>
+            <option value="Finance">Finance</option>
+            <option value="Marketing">Marketing</option>
+            <option value="Sales">Sales</option>
+            <option value="Customer Support">Customer Support</option>
+            <option value="Operations">Operations</option>
+        </select>
+        
+        <button type="button" onclick="startFaceRegistration()">Start Face Registration</button>
+    </form>
+
+    <script>
+        // Check if this is a manager registration when page loads
+        window.onload = function() {
+            // Check URL parameters for manager registration
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('register_manager') === 'true') {
+                document.getElementById('position').value = 'Manager';
+                document.getElementById('position').disabled = true;
+                document.getElementById('department').value = 'Administration';
+                document.getElementById('department').disabled = true;
+                // Set employee_id for manager registration
+                document.getElementById('employee_id').value = 'admin123';
+                document.getElementById('employee_id').disabled = true;
+            }
+        };
+
+        function startFaceRegistration() {
+            const employeeId = document.getElementById('employee_id').value;
+            const name = document.getElementById('name').value;
+            const dobInput = document.getElementById('dob').value;
+            const position = document.getElementById('position').value;
+            const department = document.getElementById('department').value;
+            
+            // Validate required fields
+            if (!employeeId || !name || !dobInput || !position || !department) {
+                alert('All fields are required. Please fill in all the information.');
+                return;
+            }
+
+            // Check if this is a manager registration
+            const isManager = position === 'Manager';
+            
+            // Ensure managers use the correct employee ID
+            if (isManager && employeeId !== 'admin123') {
+                alert('Invalid employee ID for manager registration. Manager must use the admin ID.');
+                return;
+            }
+            
+            // For non-manager registrations, verify data matches register_employee.html
+            if (!isManager) {
+                fetch(`/get_employee_details/${employeeId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'error') {
+                            alert('Employee not found in registration records. Please register through the employee registration form first.');
+                            return;
+                        }
+
+                        // Compare the data
+                        if (data.name !== name || 
+                            data.dob !== dobInput || 
+                            data.position !== position || 
+                            data.department !== department) {
+                            alert('The information provided does not match the registration records. Please check your details and try again.');
+                            return;
+                        }
+
+                        // If data matches, proceed with face registration
+                        submitRegistration(employeeId, name, dobInput, position, department);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching employee details:', error);
+                        alert('Error verifying employee details. Please try again.');
+                    });
+            } else {
+                // For manager registration, proceed directly
+                submitRegistration(employeeId, name, dobInput, position, department);
+            }
+        }
+        
+        function submitRegistration(employeeId, name, dob, position, department) {
+            const formData = {
+                employee_id: employeeId,
+                name: name,
+                dob: dob,
+                position: position,
+                department: department
+            };
+
+            fetch('/start_face_recognition', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert('Registration successful!');
+                    window.location.href = '/';
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error during registration');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Scanner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/static/images/loginimg.jpg");
+            background-size: cover;
+            background-position: center;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+            max-width: 500px;
+            width: 90%;
+        }
+        .greeting {
+            font-size: 24px;
+            margin-bottom: 30px;
+            color: #ADD8E6;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .action-button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            background: rgba(25, 25, 112, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .action-button:hover {
+            background: rgba(65, 105, 225, 0.9);
+            transform: translateY(-2px);
+        }
+        .action-button:disabled {
+            background: rgba(128, 128, 128, 0.5);
+            cursor: not-allowed;
+        }
+        .status-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+        .success {
+            background: rgba(76, 175, 80, 0.3);
+            color: #4CAF50;
+        }
+        .error {
+            background: rgba(244, 67, 54, 0.3);
+            color: #f44336;
+        }
+        .home-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background: rgba(25, 25, 112, 0.8);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .home-button:hover {
+            background: rgba(65, 105, 225, 0.9);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="greeting" id="userGreeting"></div>
+        <div class="button-container">
+            <button class="action-button" id="markInBtn" onclick="markAttendance('in')">Mark In</button>
+            <button class="action-button" id="markOutBtn" onclick="markAttendance('out')">Mark Out</button>
+            <button class="action-button" onclick="viewAttendance()">View</button>
+            <button class="home-button" onclick="window.location.href='/'">Home</button>
+        </div>
+        <div id="statusMessage" class="status-message"></div>
+    </div>
+
+    <audio id="greetingAudio"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get username from session and display greeting
+            fetch('/get_user_info')
+                .then(response => response.json())
+                .then(data => {
+                    const greeting = `Welcome, ${data.name}!`;
+                    document.getElementById('userGreeting').textContent = greeting;
+                    
+                    // Only use speech synthesis if supported by the browser
+                    if ('speechSynthesis' in window) {
+                        // Create and play greeting audio
+                        const utterance = new SpeechSynthesisUtterance(greeting);
+                        speechSynthesis.speak(utterance);
+                    }
+
+                    // Check attendance status
+                    checkAttendanceStatus();
+                })
+                .catch(error => {
+                    console.error("Error getting user info:", error);
+                    document.getElementById('userGreeting').textContent = "Welcome!";
+                });
+        });
+
+        function checkAttendanceStatus() {
+            fetch('/check_attendance_status')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        console.error("Error checking attendance status:", data.error);
+                        return;
+                    }
+                    
+                    document.getElementById('markInBtn').disabled = data.marked_in;
+                    document.getElementById('markOutBtn').disabled = !data.marked_in || data.marked_out;
+                })
+                .catch(error => {
+                    console.error("Error checking attendance status:", error);
+                });
+        }
+
+        function markAttendance(type) {
+            const button = type === 'in' ? 'markInBtn' : 'markOutBtn';
+            document.getElementById(button).disabled = true;
+            
+            fetch('/mark_attendance', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ type: type })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.textContent = data.message;
+                statusDiv.className = `status-message ${data.status === 'success' ? 'success' : 'error'}`;
+                statusDiv.style.display = 'block';
+                
+                if (data.status === 'success') {
+                    checkAttendanceStatus();
+                } else {
+                    document.getElementById(button).disabled = false;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                const statusDiv = document.getElementById('statusMessage');
+                statusDiv.textContent = 'Error marking attendance';
+                statusDiv.className = 'status-message error';
+                statusDiv.style.display = 'block';
+                document.getElementById(button).disabled = false;
+            });
+        }
+
+        function viewAttendance() {
+            window.location.href = '/dash';
+        }
+    </script>
+</body>
+</html>
+

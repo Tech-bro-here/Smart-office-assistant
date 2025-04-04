@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register New Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+        .registration-panel {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #45a049;
+        }
+        .home-button, .back-button {
+            position: fixed;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+            z-index: 1000;
+        }
+        .home-button {
+            top: 20px;
+            left: 20px;
+            background: #4CAF50;
+        }
+        .back-button {
+            top: 20px;
+            left: 140px;
+            background: #2196F3;
+        }
+        .home-button:hover { background: #45a049; }
+        .back-button:hover { background: #1976D2; }
+    </style>
+</head>
+<body>
+    <button class="home-button" onclick="window.location.href='/'">Home</button>
+    <button class="back-button" onclick="window.location.href='/admin'">Back to Admin</button>
+    
+    <div class="container">
+        <div class="registration-panel">
+            <h2>Register New Employee</h2>
+            <form id="employeeForm">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label for="position">Position:</label>
+                    <select id="position" name="position" required>
+                        <option value="">Select Position</option>
+                        <option value="Developer">Developer</option>
+                        <option value="Designer">Designer</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Support">Support</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department:</label>
+                    <select id="department" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="IT">IT</option>
+                        <option value="Human Resources">Human Resources</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Sales">Sales</option>
+                        <option value="Customer Support">Customer Support</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Generate ID & Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('employeeForm').onsubmit = function(e) {
+            e.preventDefault();
+            const formData = {
+                name: document.getElementById('name').value,
+                dob: document.getElementById('dob').value,
+                position: document.getElementById('position').value,
+                department: document.getElementById('department').value
+            };
+
+            fetch('/generate_employee_id', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`Employee ID generated: ${data.employee_id}`);
+                    window.location.href = `/new_user_login?employee_id=${data.employee_id}`;
+                } else {
+                    alert(data.message);
+                }
+            });
+        };
+    </script>
+</body>
+</html> 

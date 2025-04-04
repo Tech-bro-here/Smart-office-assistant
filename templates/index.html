@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url("/static/images/loginimg.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        .nav-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+        .button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background: rgba(25, 25, 112, 0.8);  /* Dark blue with transparency */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        .button:hover {
+            background: rgba(65, 105, 225, 0.9);  /* Royal blue with transparency */
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            max-width: 600px;
+        }
+        .welcome-text {
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #E0E0E0;
+        }
+        .recognition-link {
+            color: #ADD8E6;
+            text-decoration: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        .recognition-link:hover {
+            color: #fff;
+        }
+        #recognition-status {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            color: #ADD8E6;
+        }
+        #adminLoginForm {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-container">
+        <a href="/new_user_login" class="button">New User Login</a>
+        <a href="/services" class="button">Services</a>
+        <a href="/contact" class="button">Contact</a>
+        <a href="#" class="admin-icon button" onclick="checkAdmin()">
+            <i class="fas fa-user-shield"></i> Admin
+        </a>
+    </div>
+
+    <div class="center-content">
+        <h1>Smart Office Assistant</h1>
+        <div class="welcome-text">
+            Welcome to our modern office environment where technology meets efficiency. 
+            Our smart office system ensures secure and seamless attendance tracking. 
+            To mark your attendance, simply <span class="recognition-link" onclick="startRecognition()">click here</span> 
+            and let our advanced face recognition system verify your identity. 
+            Experience the future of workplace management with our automated attendance system.
+        </div>
+        <div id="recognition-status">Processing...</div>
+    </div>
+
+    <!-- Add this modal HTML at the end of body but before scripts -->
+    <div id="adminModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+        background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="background-color: white; padding: 20px; border-radius: 5px; width: 300px; 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+            <h3>Admin Verification</h3>
+            <div style="margin: 10px 0;">
+                <label>ID:</label>
+                <input type="text" id="adminId" style="width: 100%; padding: 5px;">
+            </div>
+            <div style="margin: 10px 0;">
+                <label>Designation:</label>
+                <input type="text" id="adminDesignation" style="width: 100%; padding: 5px;">
+            </div>
+            <div style="margin-top: 20px;">
+                <button onclick="verifyAdmin()" style="background: #4CAF50; color: white; padding: 10px 20px; 
+                    border: none; border-radius: 5px; margin-right: 10px;">Submit</button>
+                <button onclick="closeAdminModal()" style="background: #f44336; color: white; padding: 10px 20px; 
+                    border: none; border-radius: 5px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startRecognition() {
+            console.log("DEBUG: Starting recognition");
+            document.getElementById('recognition-status').style.display = 'block';
+            document.getElementById('recognition-status').textContent = 'Processing...';
+            
+            fetch('/recognize_face')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('DEBUG: Recognition response:', data);
+                    
+                    if (data.status === 'success') {
+                        console.log('DEBUG: Success, redirecting to scan');
+                        // Redirect to scan page
+                        window.location.href = '/scan';
+                    } else if (data.message === 'Face not recognized') {
+                        console.log('DEBUG: Unknown face, redirecting to chatbot');
+                        window.location.href = '/chatbot';
+                    } else {
+                        console.error('DEBUG: Other error:', data.message);
+                        alert('Error during face recognition: ' + data.message);
+                    }
+                    document.getElementById('recognition-status').style.display = 'none';
+                })
+                .catch(error => {
+                    console.error('DEBUG: Fetch error:', error);
+                    alert('Error during face recognition');
+                    document.getElementById('recognition-status').style.display = 'none';
+                });
+        }
+
+        function checkAdmin() {
+            fetch('/admin_check')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Admin check response:', data);
+                    if (data.status === 'success' && data.manager_exists) {
+                        startFaceRecognition();
+                    } else if (data.status === 'no_manager') {
+                        // Only show admin modal if no manager exists
+                        document.getElementById('adminModal').style.display = 'block';
+                    } else {
+                        throw new Error(data.message || 'Error checking admin status');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error checking admin status. Please try again.');
+                });
+        }
+
+        function startFaceRecognition() {
+            console.log('Starting face recognition...');
+            document.getElementById('recognition-status').style.display = 'block';
+            document.getElementById('recognition-status').textContent = 'Verifying admin access...';
+            
+            fetch('/admin_face_verify')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Face verification response:', data);
+                    document.getElementById('recognition-status').style.display = 'none';
+                    
+                    if (data.status === 'success') {
+                        console.log('Manager authenticated, redirecting to:', data.redirect);
+                        window.location.href = data.redirect;
+                    } else {
+                        console.log('Authentication failed:', data.message);
+                        // Show notification for face recognition failure
+                        alert(data.message);
+                        // No need to show admin modal or ask for credentials again
+                    }
+                })
+                .catch(error => {
+                    console.error('Error during face verification:', error);
+                    alert('Error during face verification. Please try again.');
+                    document.getElementById('recognition-status').style.display = 'none';
+                });
+        }
+
+        function verifyAdmin() {
+            const id = document.getElementById('adminId').value;
+            const designation = document.getElementById('adminDesignation').value;
+            
+            if (!id || !designation) {
+                alert('Please enter both ID and designation');
+                return;
+            }
+            
+            fetch('/verify_admin', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id: id,
+                    designation: designation
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Verify admin response:', data);
+                
+                if (data.status === 'success') {
+                    // Successful verification, redirect to admin page
+                    window.location.href = data.redirect;
+                } else if (data.status === 'no_manager') {
+                    // No manager exists, proceed with registration
+                    return fetch('/save_manager', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            id: id,
+                            designation: designation
+                        })
+                    }).then(response => response.json());
+                } else {
+                    throw new Error(data.message || 'Invalid credentials');
+                }
+            })
+            .then(data => {
+                if (data && data.status === 'success') {
+                    window.location.href = data.redirect || '/register_new_manager';
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert(error.message || 'Error during verification. Please try again.');
+            });
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').style.display = 'none';
+            window.location.href = '/';
+        }
+
+        // Make sure the admin icon click handler is properly set
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.admin-icon').onclick = function(e) {
+                e.preventDefault();
+                checkAdmin();
+            };
+        });
+
+        // Only show admin modal on page load if explicitly requested and no manager exists
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('show_admin_modal') === 'true') {
+                fetch('/admin_check')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'no_manager') {
+                            document.getElementById('adminModal').style.display = 'block';
+                        }
+                    });
+            }
+        };
+    </script>
+</body>
+</html>

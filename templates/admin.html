@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .header .title {
+            font-size: 24px;
+        }
+        .header .icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .content {
+            padding: 20px;
+        }
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stats .stat {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .appointments {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .employee-table th, .employee-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .employee-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .employee-link {
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .employee-link:hover {
+            text-decoration: underline;
+        }
+        .appointment-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .appointment-table th, .appointment-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .appointment-table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+        .appointment-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .appointment-table tr:hover {
+            background-color: #f1f1f1;
+        }
+        .appointment-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-active {
+            background-color: #e7f7e7;
+            color: #2e7d32;
+        }
+        .status-cancelled {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        .status-completed {
+            background-color: #e3f2fd;
+            color: #1565c0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">Admin Dashboard</div>
+        <div class="icon" onclick="window.location.href='/register_employee'"><i class="fas fa-user-plus"></i> Register New Employee</div>
+    </div>
+    <div class="content">
+        <div class="stats">
+            <div class="stat">
+                <div>Total Employees</div>
+                <div id="totalEmployees">0</div>
+            </div>
+            <div class="stat">
+                <div>Appointments</div>
+                <div id="appointments">0</div>
+            </div>
+            <div class="stat">
+                <div>Employees Present</div>
+                <div id="employeesPresent">0</div>
+            </div>
+        </div>
+        <div class="appointments">
+            <h3>Appointments</h3>
+            <table class="appointment-table">
+                <thead>
+                    <tr>
+                        <th>Visitor Name</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Purpose</th>
+                        <th>Mark Completed</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsList">
+                    <!-- Appointment data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+        <div class="employee-status">
+            <h3>Registered Employee Status</h3>
+            <table class="employee-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Department</th>
+                        <th>Designation</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Employee data will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        // Fetch and display data for total employees, appointments, and employees present
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch dashboard stats
+            fetch('/get_dashboard_stats')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Dashboard stats received:", data);
+                    document.getElementById('totalEmployees').textContent = data.total_employees;
+                    document.getElementById('employeesPresent').textContent = data.today_present;
+                    document.getElementById('appointments').textContent = data.appointments;
+                })
+                .catch(error => {
+                    console.error("Error fetching dashboard stats:", error);
+                });
+
+            // Fetch employee list
+            fetch('/get_employees')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Employees data received:", data);
+                    const tbody = document.querySelector('.employee-table tbody');
+                    tbody.innerHTML = ''; // Clear existing rows
+                    
+                    if (data.length === 0) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="5" style="text-align: center;">No employees found</td>';
+                        tbody.appendChild(row);
+                    } else {
+                        data.forEach(employee => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td><a href="/employee_attendance/${employee.employee_id}" class="employee-link">${employee.employee_id}</a></td>
+                                <td>${employee.name}</td>
+                                <td>${employee.department || 'N/A'}</td>
+                                <td>${employee.position || 'N/A'}</td>
+                                <td>${employee.status || 'Active'}</td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching employees:", error);
+                });
+                
+            // Fetch appointments
+            fetch('/get_appointments')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Appointments data received:", data);
+                    const tbody = document.getElementById('appointmentsList');
+                    tbody.innerHTML = ''; // Clear existing rows
+                    
+                    if (!data || data.length === 0) {
+                        // No appointments - show a message
+                        const row = document.createElement('tr');
+                        row.innerHTML = '<td colspan="5" style="text-align: center;">No appointments scheduled</td>';
+                        tbody.appendChild(row);
+                    } else {
+                        // Display appointments
+                        data.forEach(appointment => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td><strong>${appointment.visitor_name || 'N/A'}</strong></td>
+                                <td>${appointment.date || 'N/A'}</td>
+                                <td>${appointment.time || 'N/A'}</td>
+                                <td>${appointment.purpose || 'N/A'}</td>
+                                <td style="text-align: center">
+                                    <input type="checkbox" class="complete-appointment" data-id="${appointment.id}" 
+                                    ${appointment.status === 'completed' ? 'checked disabled' : ''}>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching appointments:", error);
+                    const tbody = document.getElementById('appointmentsList');
+                    tbody.innerHTML = '<tr><td colspan="5" style="text-align: center;">Error loading appointment data</td></tr>';
+                });
+
+            // Add event delegation for appointment checkboxes
+            document.addEventListener('click', function(event) {
+                if (event.target.classList.contains('complete-appointment') && !event.target.disabled) {
+                    const appointmentId = event.target.dataset.id;
+                    if (confirm('Mark this appointment as completed? This will remove it from the active appointments.')) {
+                        completeAppointment(appointmentId, event.target);
+                    } else {
+                        // Reset checkbox if user cancels
+                        event.target.checked = false;
+                    }
+                }
+            });
+
+            // Function to mark appointment as completed
+            function completeAppointment(id, checkbox) {
+                fetch(`/complete_appointment/${id}`, { 
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to complete appointment');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        // Disable checkbox
+                        checkbox.disabled = true;
+                        
+                        // Update appointment count by fetching fresh data
+                        refreshDashboardStats();
+                        
+                        // Show success message
+                        alert('Appointment marked as completed successfully');
+                    } else {
+                        // Reset checkbox on error
+                        checkbox.checked = false;
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    // Reset checkbox on error
+                    checkbox.checked = false;
+                    console.error('Error completing appointment:', error);
+                    alert('Error completing appointment');
+                });
+            }
+            
+            // Function to refresh dashboard stats
+            function refreshDashboardStats() {
+                fetch('/get_dashboard_stats')
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log("Dashboard stats refreshed:", data);
+                        document.getElementById('totalEmployees').textContent = data.total_employees;
+                        document.getElementById('employeesPresent').textContent = data.today_present;
+                        document.getElementById('appointments').textContent = data.appointments;
+                    })
+                    .catch(error => {
+                        console.error("Error refreshing dashboard stats:", error);
+                    });
+            }
+        });
+    </script>
+</body>
+</html> 

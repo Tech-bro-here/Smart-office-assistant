@@ -1,0 +1,142 @@
+style.css
+
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #6e957a, #88f18f);
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    width: 900px;
+    height: 500px;
+}
+
+/* Form Styles */
+.myform {
+    width: 50%;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px 0 0 20px;
+    animation: slideInLeft 1s ease-in-out;
+}
+
+.myform h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.myform input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.myform input:focus {
+    border-color: #0a8b60;
+}
+
+.myform button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: #0d8d47;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.myform button:hover {
+    background: #158960;
+}
+
+/* Image Container Styles */
+.image {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.1);
+    animation: slideInRight 1s ease-in-out;
+    overflow: hidden; /* Ensure the image doesn't overflow */
+}
+
+.image img {
+    width: 100%; /* Make the image fill the container */
+    height: 100%; /* Make the image fill the container */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 0 20px 20px 0; /* Rounded corners for the image */
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .myform, .image {
+        width: 100%;
+        border-radius: 20px;
+    }
+
+    .image {
+        display: none; /* Hide image on smaller screens */
+    }
+}
+
+
+

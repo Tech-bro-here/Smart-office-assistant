@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .welcome-message {
+            margin-bottom: 30px;
+            color: #555;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .back-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            width: 100px;
+        }
+        .back-button:hover {
+            background-color: #45a049;
+        }
+        .no-records {
+            text-align: center;
+            color: #777;
+            margin-top: 20px;
+        }
+        .tab-container {
+            margin-bottom: 20px;
+        }
+        .tab-button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            border: none;
+            background-color: #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .tab-button.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        .task-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+        }
+        .task-date {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+        .task-message {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .task-reply {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+        .reply-input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        .reply-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .reply-button:hover {
+            background-color: #45a049;
+        }
+        .task-replies {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Dashboard</h1>
+        <div class="welcome-message">
+            User: <span id="userName">{{ user_name }}</span> | 
+            Position: <span id="userPosition">{{ position }}</span>
+        </div>
+        
+        <div class="tab-container">
+            <button class="tab-button active" onclick="showTab('attendance')">Attendance History</button>
+            <button class="tab-button" onclick="showTab('tasks')">Tasks</button>
+        </div>
+        
+        <div id="attendanceTab" class="tab-content active">
+            <table id="attendanceTable">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Type</th>
+                    </tr>
+                </thead>
+                <tbody id="attendanceBody">
+                    <!-- Attendance records will be inserted here -->
+                </tbody>
+            </table>
+            <div id="noRecords" class="no-records" style="display: none;">
+                No attendance records found.
+            </div>
+        </div>
+
+        <div id="tasksTab" class="tab-content">
+            <div id="tasksList">
+                <!-- Tasks will be inserted here -->
+            </div>
+            <div id="noTasks" class="no-records" style="display: none;">
+                No tasks assigned yet.
+            </div>
+        </div>
+        
+        <a href="/" class="back-button">Home</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchAttendanceRecords();
+            loadTasks();
+        });
+        
+        function fetchAttendanceRecords() {
+            const userName = document.getElementById('userName').textContent.trim();
+            console.log("Fetching attendance for:", userName);
+            
+            fetch(`/get_user_attendance/${encodeURIComponent(userName)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Attendance data:', data);
+                    displayAttendanceRecords(data);
+                })
+                .catch(error => {
+                    console.error('Error fetching attendance:', error);
+                    document.getElementById('noRecords').textContent = 'Error fetching attendance records.';
+                    document.getElementById('noRecords').style.display = 'block';
+                    document.getElementById('attendanceTable').style.display = 'none';
+                });
+        }
+        
+        function displayAttendanceRecords(data) {
+            const tableBody = document.getElementById('attendanceBody');
+            const noRecords = document.getElementById('noRecords');
+            
+            if (data.records && data.records.length > 0) {
+                // Clear existing rows
+                tableBody.innerHTML = '';
+                
+                // Add new rows
+                data.records.forEach(record => {
+                    const row = document.createElement('tr');
+                    
+                    const dateCell = document.createElement('td');
+                    dateCell.textContent = record.date;
+                    row.appendChild(dateCell);
+                    
+                    const timeCell = document.createElement('td');
+                    timeCell.textContent = record.time;
+                    row.appendChild(timeCell);
+                    
+                    const typeCell = document.createElement('td');
+                    typeCell.textContent = record.type.toUpperCase();
+                    row.appendChild(typeCell);
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                noRecords.style.display = 'none';
+                document.getElementById('attendanceTable').style.display = 'table';
+            } else {
+                noRecords.style.display = 'block';
+                document.getElementById('attendanceTable').style.display = 'none';
+            }
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            document.querySelector(`.tab-button[onclick="showTab('${tabName}')"]`).classList.add('active');
+        }
+
+        function loadTasks() {
+            const userName = document.getElementById('userName').textContent.trim();
+            
+            fetch(`/get_user_tasks/${encodeURIComponent(userName)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const tasksList = document.getElementById('tasksList');
+                    const noTasks = document.getElementById('noTasks');
+                    
+                    if (data.tasks && data.tasks.length > 0) {
+                        tasksList.innerHTML = '';
+                        data.tasks.forEach(task => {
+                            const taskDiv = document.createElement('div');
+                            taskDiv.className = 'task-item';
+                            taskDiv.innerHTML = `
+                                <div class="task-date">${task.date}</div>
+                                <div class="task-message">${task.message}</div>
+                                <div class="task-replies">
+                                    ${task.replies ? task.replies.map(reply => `
+                                        <div class="reply" style="margin-bottom: 5px;">
+                                            <small>${reply.date}</small>
+                                            <div>${reply.message}</div>
+                                        </div>
+                                    `).join('') : ''}
+                                </div>
+                                <div class="task-reply">
+                                    <textarea class="reply-input" placeholder="Write your reply..."></textarea>
+                                    <button class="reply-button" onclick="replyToTask('${task.id}', this)">Reply</button>
+                                </div>
+                            `;
+                            tasksList.appendChild(taskDiv);
+                        });
+                        tasksList.style.display = 'block';
+                        noTasks.style.display = 'none';
+                    } else {
+                        tasksList.style.display = 'none';
+                        noTasks.style.display = 'block';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading tasks:', error);
+                    document.getElementById('noTasks').textContent = 'Error loading tasks.';
+                    document.getElementById('noTasks').style.display = 'block';
+                });
+        }
+
+        function replyToTask(taskId, button) {
+            const replyInput = button.previousElementSibling;
+            const replyText = replyInput.value.trim();
+            
+            if (!replyText) {
+                alert('Please enter a reply');
+                return;
+            }
+
+            fetch('/reply_to_task', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    task_id: taskId,
+                    reply: replyText
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Reply sent successfully');
+                    replyInput.value = '';
+                    loadTasks(); // Refresh tasks to show new reply
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error sending reply');
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+
